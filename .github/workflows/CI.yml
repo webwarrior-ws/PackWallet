@@ -1,0 +1,55 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build_snap:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install snap tools
+      run: |
+        sudo apt update
+        sudo apt install -y snapd
+        snap version
+
+        sudo snap install --classic snapcraft
+        
+        # workaround for GithubActionsCI+snapcraft, see https://forum.snapcraft.io/t/permissions-problem-using-snapcraft-in-azure-pipelines/13258/14
+        sudo chown root:root /
+        snapcraft --version
+        
+        # use multipass provider as lxd doesn't work for some reason
+        sudo snap install multipass
+        sudo snap set snapcraft provider=multipass
+        
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Generate snap package
+      run: sudo snapcraft --destructive-mode --verbosity=verbose || sudo bash -c 'cat /root/.local/state/snapcraft/log/*.log'
+
+    - uses: actions/upload-artifact@v3
+      name: Upload snap package as artifact
+      with:
+        name: snap
+        path: ./*.snap
+        
+  run_snap:
+    needs: build_snap
+    
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/download-artifact@v3
+      name: Download artifact
+      with:
+        name: snap
+        
+    - name: Install snap
+      run: |
+        zip -r snap.zip .
+        # dangerous because it's a local snap (not one from the SnapStore)
+        sudo snap install --devmode --dangerous *.snap
+    
+    - name: Test snap
+      run: packwallet
