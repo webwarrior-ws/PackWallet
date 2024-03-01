@@ -13,9 +13,9 @@ parts:
     plugin: dotnet
     source: .
     build-packages:
-      - dotnet-sdk-6.0
+      - dotnet-sdk-7.0
     stage-snaps:
-      - dotnet-runtime-60
+      - dotnet-runtime-70
 
 apps:
   packwallet:
