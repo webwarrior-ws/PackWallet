@@ -65,7 +65,7 @@ jobs:
     strategy:
       matrix:
         # macos-13 is x64 and macos-14 is arm64
-        os: [ubuntu-22.04, macos-13, macos-14]
+        os: [ubuntu-22.04, macos-13, macos-14, windows-latest]
 
     needs: build
     runs-on: ${{ matrix.os }}
