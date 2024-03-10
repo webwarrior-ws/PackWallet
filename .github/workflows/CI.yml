@@ -60,6 +60,19 @@ jobs:
       with:
         name: snap
         path: ./*.snap
+
+  integration_tests:
+    strategy:
+      matrix:
+        # macos-13 is x64 and macos-14 is arm64
+        os: [ubuntu-22.04, macos-13, macos-14]
+
+    needs: build
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run Tests
+      run: dotnet test
         
   run_snap:
     needs: build_snap
