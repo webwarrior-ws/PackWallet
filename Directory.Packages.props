@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="FSharp.Data" Version="6.3.0" />
-    <PackageVersion Include="org.ldk" Version="0.0.121.2" />
+    <PackageVersion Include="LdkSharp" Version="0.0.0.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.4.2" />

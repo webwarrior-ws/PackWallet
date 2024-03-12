@@ -15,7 +15,7 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="coverlet.collector" />
-    <PackageReference Include="org.ldk" />
+    <PackageReference Include="LdkSharp" />
   </ItemGroup>
 
 </Project>
