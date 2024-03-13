@@ -1,7 +1,8 @@
 ﻿open System.Net.Http
 open FSharp.Data
 
-type CoindDeskProvider = JsonProvider<"""
+type CoindDeskProvider =
+    JsonProvider<"""
     {
         "time": {
             "updated": "Feb 25, 2024 12:27:26 UTC",
@@ -42,7 +43,7 @@ let address = "https://api.coindesk.com/v1/bpi/currentprice.json"
 
 printfn "Retrieving contents of %s ...\n" address
 
-let contents = 
+let contents =
     webClient.GetStringAsync address
     |> Async.AwaitTask
     |> Async.RunSynchronously
