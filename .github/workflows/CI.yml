@@ -142,7 +142,7 @@ jobs:
       with:
         name: snap
 
-    - name: Unzip & upload snap
+    - name: Unzip
       run: |
         zip -r snap.zip .
 
