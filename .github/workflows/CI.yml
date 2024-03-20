@@ -152,6 +152,8 @@ jobs:
         snapcraft --version
 
     - name: Upload to SnapStore
+      #FIXME: add github.event_name == 'push' condition to the 'if:' condition below?
+      if: startsWith(github.ref, 'refs/tags/')
       run: |
         # no need to 'snapcraft login' first, see https://forum.snapcraft.io/t/snapcraft-authentication-options/30473/21
         snapcraft upload *.snap --release=beta
