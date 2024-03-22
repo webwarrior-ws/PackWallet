@@ -94,7 +94,7 @@ jobs:
         sudo snap install --devmode --dangerous *.snap
     
     - name: Test snap
-      run: packwallet
+      run: dotnet-fsharp-helloworld
 
   conventions:
     needs:
