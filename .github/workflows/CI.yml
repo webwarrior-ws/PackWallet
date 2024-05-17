@@ -60,7 +60,11 @@ jobs:
         sudo snap set snapcraft provider=multipass
         
     - name: Build
-      run: dotnet build --configuration Release
+      run: |
+        dotnet build --configuration Release
+        mkdir staging
+        cp -rfvp src/PackWallet/bin/Release/net7.0/* staging/
+        cp src/PackWallet/launch.sh staging/
 
     - name: Generate snap package
       run: sudo snapcraft --destructive-mode --verbosity=verbose || sudo bash -c 'cat /root/.local/state/snapcraft/log/*.log'

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-$SNAP/dotnet $SNAP/PackWallet.dll "$@"
+dotnet $SNAP/PackWallet.dll "$@"
