@@ -53,11 +53,8 @@ jobs:
         
         # workaround for GithubActionsCI+snapcraft, see https://forum.snapcraft.io/t/permissions-problem-using-snapcraft-in-azure-pipelines/13258/14
         sudo chown root:root /
+
         snapcraft --version
-        
-        # use multipass provider as lxd doesn't work for some reason
-        sudo snap install multipass
-        sudo snap set snapcraft provider=multipass
         
     - name: Build
       run: |
