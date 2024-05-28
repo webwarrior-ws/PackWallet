@@ -173,6 +173,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Prepare Nuget source
+      run: python3 flatpak-dotnet-generator.py sources.json src/PackWallet/PackWallet.fsproj
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
         manifest-path: com.nodeeffect.packwallet.yaml
