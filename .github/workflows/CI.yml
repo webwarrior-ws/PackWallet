@@ -168,33 +168,12 @@ jobs:
   flatpak:
     runs-on: ubuntu-22.04
     container:
-      image: "ubuntu:22.04"
+      image: bilelmoussaoui/flatpak-github-actions:gnome-44
+      options: --privileged
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install required dependencies
-      run: |
-        apt update
-        apt install --yes sudo
-        sudo apt install --yes --no-install-recommends git
-        # workaround for https://github.com/actions/runner/issues/2033
-        git config --global --add safe.directory '*'
-    - name: Setup .NET
-      run: |
-        # We need to install `ca-certificates`, otherwise we get these errors in the CI:
-        # Unable to load the service index for source https://api.nuget.org/v3/index.json.
-        # The SSL connection could not be established, see inner exception.
-        # The remote certificate is invalid because of errors in the certificate chain: UntrustedRoot
-        apt install --yes --no-install-recommends ca-certificates
-        apt install --yes --no-install-recommends dotnet7
-    - name: Install and setup Flatpak
-      run: |
-        sudo apt install --yes flatpak flatpak-builder
-        flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-        flatpak install --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
-        flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.dotnet7//23.08
-    - name: Build flatpak package
-      run: flatpak-builder --disable-rofiles-fuse packwallet-build com.nodeeffect.packwallet.yaml
-    - name: Test flatpak package
-      run: flatpak-builder --disable-rofiles-fuse --user --install --force-clean packwallet-build com.nodeeffect.packwallet.yaml
-    
+    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      with:
+        manifest-path: com.nodeeffect.packwallet.yaml
+
