@@ -14,9 +14,9 @@ import tempfile
 
 def main():
     # Bump this to latest freedesktop runtime version.
-    freedesktop_default = '22.08'
+    freedesktop_default = '23.08'
     # Bump this to an LTS dotnet version.
-    dotnet_default = '6'
+    dotnet_default = '7'
 
     parser = argparse.ArgumentParser()
     parser.add_argument('output', help='The output JSON sources file')

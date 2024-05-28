@@ -171,7 +171,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Prepare Nuget source
-      run: python3 flatpak-dotnet-generator.py sources.json src/PackWallet/PackWallet.fsproj
+      run: python3 flatpak-dotnet-generator.py src/PackWallet/sources.json src/PackWallet/PackWallet.fsproj
     - name: Install required dependencies
       run: |
         sudo apt install --yes --no-install-recommends git
