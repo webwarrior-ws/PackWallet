@@ -165,4 +165,58 @@ jobs:
       run: |
         # no need to 'snapcraft login' first, see https://forum.snapcraft.io/t/snapcraft-authentication-options/30473/21
         snapcraft upload *.snap --release=beta
+        
+  build_flatpak:
+    runs-on: ubuntu-22.04
 
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET
+      run: |
+        # We need to install `ca-certificates`, otherwise we get these errors in the CI:
+        # Unable to load the service index for source https://api.nuget.org/v3/index.json.
+        # The SSL connection could not be established, see inner exception.
+        # The remote certificate is invalid because of errors in the certificate chain: UntrustedRoot
+        sudo apt install --yes --no-install-recommends ca-certificates
+        sudo apt install --yes --no-install-recommends dotnet7
+    - name: Install and setup Flatpak
+      run: |
+        sudo apt install --yes flatpak flatpak-builder
+        sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak install --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
+        sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.dotnet7//23.08
+    - name: Build project
+      run: |
+        cd src/PackWallet
+        dotnet publish -c Release PackWallet.fsproj
+        cd ../..
+    - name: Build flatpak package
+      run: flatpak-builder --repo=flatpak-repository --disable-rofiles-fuse packwallet-build com.packwallet.flatpak.yaml
+    - name: Create single-file bundle to be uploaded as artifact
+      run: flatpak build-bundle flatpak-repository packwallet.flatpak com.packwallet.flatpak
+    - uses: actions/upload-artifact@v3
+      name: Upload flatpak package as artifact
+      with:
+        name: packwallet.flatpak
+        path: ./packwallet.flatpak
+    
+  run_flatpak:
+    needs: build_flatpak
+    
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/download-artifact@v3
+      name: Download artifact
+      with:
+        name: packwallet.flatpak
+    - name: Install Flatpak and necessary runtimes
+      run: |
+        sudo apt install --yes flatpak
+        sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        sudo flatpak install --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
+        sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.dotnet7//23.08
+    - name: Install packwallet flatpak package
+      run: flatpak install --user --noninteractive packwallet.flatpak
+    - name: Run packwallet
+      run: flatpak run com.packwallet.flatpak

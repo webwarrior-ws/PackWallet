@@ -1,0 +1,28 @@
+id: com.packwallet.flatpak
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: launch.sh
+modules:
+  - name: PackWallet
+    buildsystem: simple
+    build-commands:
+      - install.sh
+      - cp --recursive --remove-destination /run/build/PackWallet/bin/Release/net7.0/publish/* /app/bin/
+      - install -D launch_flatpak.sh /app/bin/launch.sh
+    sources:
+      - type: dir
+        path: src/PackWallet/
+finish-args:
+  - --share=network
+sdk-extensions: [
+    "org.freedesktop.Sdk.Extension.dotnet7"
+]
+build-options: {
+    "append-path": "/usr/lib/sdk/dotnet7/bin",
+    "append-ld-library-path": "/usr/lib/sdk/dotnet7/lib",
+    "env": {
+        "PKG_CONFIG_PATH": "/app/lib/pkgconfig:/app/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/lib/sdk/dotnet7/lib/pkgconfig"
+    }
+}
+
