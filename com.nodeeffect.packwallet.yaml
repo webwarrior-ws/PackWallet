@@ -7,7 +7,7 @@ modules:
   - name: PackWallet
     buildsystem: simple
     build-commands:
-      - install.sh
+      - install-sdk.sh
       - dotnet --info
       - dotnet publish -c Release PackWallet.fsproj
       - cp -r --remove-destination /run/build/PackWallet/bin/Release/net7.0/publish/ /app/bin/
