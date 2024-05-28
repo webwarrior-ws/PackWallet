@@ -8,8 +8,7 @@ modules:
     buildsystem: simple
     build-commands:
       - install-sdk.sh
-      - dotnet --info
-      - dotnet publish -c Release PackWallet.fsproj
+      - dotnet publish --source sources.json -c Release PackWallet.fsproj
       - cp -r --remove-destination /run/build/PackWallet/bin/Release/net7.0/publish/ /app/bin/
     sources:
       - type: dir
