@@ -10,6 +10,7 @@ import binascii
 import json
 import subprocess
 import tempfile
+import shutil
 
 
 def main():
@@ -64,6 +65,8 @@ def main():
                 'dest': args.destdir,
                 'dest-filename': filename,
             })
+        
+        shutil.copytree(tmp, args.destdir)
 
     with open(args.output, 'w') as fp:
         json.dump(

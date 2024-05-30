@@ -13,6 +13,9 @@ modules:
     sources:
       - type: dir
         path: src/PackWallet/
+      - type: dir
+        path: nuget-sources
+        dest: nuget-sources
 sdk-extensions: [
     "org.freedesktop.Sdk.Extension.dotnet7"
 ]
