@@ -176,13 +176,6 @@ jobs:
         sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
         sudo flatpak install --system --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
         sudo flatpak install --system --noninteractive flathub org.freedesktop.Sdk.Extension.dotnet7//23.08
-    - name: Add missing packages
-      run: |
-        cd src/PackWallet/
-        dotnet add package Microsoft.NETCore.App.Ref --version 7.0.19
-        dotnet add package Microsoft.AspNetCore.App.Ref --version 7.0.19
-        dotnet add package Microsoft.NETCore.App.Host.linux-x64 --version 7.0.19
-        cd ../..
     - name: Prepare Nuget source
       run: python3 flatpak-dotnet-generator.py src/PackWallet/sources.json src/PackWallet/PackWallet.fsproj --runtime linux-x64
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6

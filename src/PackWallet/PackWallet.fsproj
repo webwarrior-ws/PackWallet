@@ -17,4 +17,10 @@
       <PackageReference Include="FSharp.Data" />
     </ItemGroup>
 
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.NETCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.NETCore.App.Host" />
+    </ItemGroup>
+
 </Project>
