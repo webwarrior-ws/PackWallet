@@ -66,7 +66,7 @@ def main():
                 'dest-filename': filename,
             })
         
-        shutil.copytree(tmp, args.destdir)
+        shutil.copytree(tmp, args.destdir, dirs_exist_ok=True)
 
     with open(args.output, 'w') as fp:
         json.dump(

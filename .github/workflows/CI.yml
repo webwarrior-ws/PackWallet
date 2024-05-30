@@ -177,7 +177,7 @@ jobs:
         sudo flatpak install --system --noninteractive flathub org.freedesktop.Platform//23.08 org.freedesktop.Sdk//23.08
         sudo flatpak install --system --noninteractive flathub org.freedesktop.Sdk.Extension.dotnet7//23.08
     - name: Prepare Nuget source
-      run: python3 flatpak-dotnet-generator.py src/PackWallet/sources.json src/PackWallet/PackWallet.fsproj
+      run: python3 flatpak-dotnet-generator.py src/PackWallet/sources.json src/PackWallet/PackWallet.fsproj --runtime linux-x64
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
         manifest-path: com.nodeeffect.packwallet.yaml
