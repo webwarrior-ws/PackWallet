@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <Compile Include="Program.fs"/>
-        <None Include="launch.sh">
+        <None Include="launch_snap.sh">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>

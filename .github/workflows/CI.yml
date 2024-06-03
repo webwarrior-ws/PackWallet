@@ -61,7 +61,7 @@ jobs:
         dotnet build --configuration Release
         mkdir staging
         cp -rfvp src/PackWallet/bin/Release/net7.0/* staging/
-        cp src/PackWallet/launch.sh staging/
+        cp src/PackWallet/launch_snap.sh staging/
 
     - name: Generate snap package
       run: sudo snapcraft --destructive-mode --verbosity=verbose || (sudo bash -c 'cat /root/.local/state/snapcraft/log/*.log' && exit 1)

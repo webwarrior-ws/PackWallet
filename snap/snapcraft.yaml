@@ -19,4 +19,4 @@ parts:
 
 apps:
   dotnet-fsharp-helloworld:
-    command: launch.sh
+    command: launch_snap.sh
