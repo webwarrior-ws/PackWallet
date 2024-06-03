@@ -10,13 +10,14 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 
 parts:
   dotnet-fsharp-helloworld:
-    plugin: dump
-    source: ./staging
+    plugin: dotnet
+    source: .
     build-packages:
       - dotnet-sdk-7.0
-    stage-packages:
-      - dotnet-runtime-7.0
+    stage-snaps:
+      - dotnet-runtime-70
 
 apps:
   dotnet-fsharp-helloworld:
     command: launch.sh
+
