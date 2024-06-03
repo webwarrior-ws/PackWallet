@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-dotnet PackWallet.dll "$@"
+dotnet /app/bin/PackWallet.dll "$@"
