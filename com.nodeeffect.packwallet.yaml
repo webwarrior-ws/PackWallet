@@ -13,6 +13,8 @@ modules:
     sources:
       - type: dir
         path: src/PackWallet/
+finish-args:
+  - --share=network
 sdk-extensions: [
     "org.freedesktop.Sdk.Extension.dotnet7"
 ]
