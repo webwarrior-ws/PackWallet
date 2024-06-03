@@ -15,7 +15,7 @@ parts:
     build-packages:
       - dotnet-sdk-7.0
     stage-snaps:
-      - dotnet-runtime-70
+      - dotnet-runtime-70/latest/candidate
 
 apps:
   dotnet-fsharp-helloworld:
