@@ -49,7 +49,7 @@ jobs:
         sudo apt install -y snapd
         snap version
 
-        sudo snap install --classic snapcraft
+        sudo snap install --classic snapcraft --channel=7.x/stable
         
         # workaround for GithubActionsCI+snapcraft, see https://forum.snapcraft.io/t/permissions-problem-using-snapcraft-in-azure-pipelines/13258/14
         sudo chown root:root /
