@@ -9,7 +9,7 @@ modules:
     build-commands:
       - install.sh
       - cp -r --remove-destination /run/build/PackWallet/bin/Release/net7.0/publish/ /app/bin/
-      - install -D launch.sh /app/bin/launch.sh
+      - install -D launch_flatpak.sh /app/bin/launch.sh
     sources:
       - type: dir
         path: src/PackWallet/
